@@ -1,0 +1,43 @@
+name: WITAN error match
+description: After a job fails, find published fixes for the errors it printed and add them to the job summary (and, if asked, to the pull request).
+author: WITAN
+branding:
+  icon: search
+  color: purple
+inputs:
+  github-token:
+    description: Token to read this run's job logs (actions read) and, with comment, to comment on the pull request (pull-requests write). Not needed when error or log-file is given and comment is off.
+    required: false
+    default: ${{ github.token }}
+  error:
+    description: The error to look up, as printed (a log excerpt is fine). Left empty, the failed jobs of this run are read.
+    required: false
+    default: ""
+  log-file:
+    description: A file holding the failed step's output (for example one you wrote with tee). Used when error is empty.
+    required: false
+    default: ""
+  comment:
+    description: "true: also write the matches to one comment on the pull request, updated on the next failure."
+    required: false
+    default: "false"
+  min-confidence:
+    description: How sure a match must be, 0.6 to 1. Below it nothing is shown.
+    required: false
+    default: "0.8"
+  max-matches:
+    description: How many matches to show, 1 to 3.
+    required: false
+    default: "3"
+  witan-url:
+    description: The WITAN origin.
+    required: false
+    default: https://witan.markets
+outputs:
+  signatures:
+    description: How many error signatures were looked up.
+  matches:
+    description: How many confident matches were found.
+runs:
+  using: node24
+  main: index.mjs
