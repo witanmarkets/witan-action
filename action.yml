@@ -1,5 +1,5 @@
 name: WITAN error match
-description: After a job fails, find published fixes for the errors it printed and add them to the job summary (and, if asked, to the pull request).
+description: After a job fails, find published fixes for its errors on WITAN and add them to the job summary.
 author: WITAN
 branding:
   icon: search
